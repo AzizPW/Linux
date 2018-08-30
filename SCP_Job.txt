@@ -1,0 +1,6 @@
+#!/usr/bin/expect
+spawn scp /home/oracle/mii/scripts/cekarch/arch/monarch.txt  oracle@10.6.4.242:/home/oracle/sis/monitoring/tmp
+set pass "oracle"
+expect{
+  password: {send "$pass\r"; exp_continue}
+}

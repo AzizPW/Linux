@@ -1,0 +1,19 @@
+LVM Remove Volume Group
+=======================
+[root@spiderman oracle]# vgchange -a n vol_grp2
+  0 logical volume(s) in volume group "vol_grp2" now active
+[root@spiderman oracle]# vgremove vol_grp2
+  Volume group "vol_grp2" successfully removed
+[root@spiderman oracle]# vgs
+  VG       #PV #LV #SN Attr   VSize VFree
+  vol_grp1   1   1   0 wz--n- 2,99g    0 
+[root@spiderman oracle]# pvs
+  PV         VG       Fmt  Attr PSize PFree
+  /dev/sdi1  vol_grp1 lvm2 a--  2,99g    0 
+  /dev/sdj1           lvm2 ---  2,00g 2,00g
+[root@spiderman oracle]# pvremove /dev/sdj1
+  Labels on physical volume "/dev/sdj1" successfully wiped
+[root@spiderman oracle]# pvs
+  PV         VG       Fmt  Attr PSize PFree
+  /dev/sdi1  vol_grp1 lvm2 a--  2,99g    0 
+[root@spiderman oracle]#

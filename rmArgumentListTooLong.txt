@@ -1,0 +1,8 @@
+[applprod@apps out]$ find o*out -mtime +2 -exec "ls -lh {}"/\;
+-bash: /usr/bin/find: Argument list too long
+[applprod@apps out]$ ls o12*out
+-bash: /bin/ls: Argument list too long
+[applprod@apps out]$ getconf ARG_MAX
+2621440
+[applprod@apps out]$ for f in o123*out; do rm -fr "$f"; done
+[applprod@apps out]$

@@ -1,0 +1,68 @@
+### After Partition The ASM Disks
+#################################
+Run these steps on one node only
+
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdd1
+36000c29c3755da47dddec2740d3ce718
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sde1
+36000c29b3765487897c5b8d5748b4d77
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdf1
+36000c29e4a28032910215f46041e7e0f
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdg1
+36000c290f93a123d91b0a6afd0f2dbdf
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdh1
+36000c292f8439da0bd77a2fde98bae35
+[root@iwak ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sdi1
+36000c295780c926d8eb2bf6e418a0219
+[root@iwak ~]# vi /etc/udev/rules.d/99-oracle-asmdevices.rules
+[root@iwak ~]# cat /etc/udev/rules.d/99-oracle-asmdevices.rules
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c29c3755da47dddec2740d3ce718", SYMLINK+="oracleasm/DATA10G01", OWNER="grid", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c29b3765487897c5b8d5748b4d77", SYMLINK+="oracleasm/DATA10G02", OWNER="grid", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c29e4a28032910215f46041e7e0f", SYMLINK+="oracleasm/DATA10G03", OWNER="grid", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c290f93a123d91b0a6afd0f2dbdf", SYMLINK+="oracleasm/FRA5G01", OWNER="grid", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c292f8439da0bd77a2fde98bae35", SYMLINK+="oracleasm/FRA5G02", OWNER="grid", GROUP="asmadmin", MODE="0660"
+KERNEL=="sd?1", SUBSYSTEM=="block", PROGRAM=="/usr/lib/udev/scsi_id -g -u -d /dev/$parent", RESULT=="36000c295780c926d8eb2bf6e418a0219", SYMLINK+="oracleasm/FRA5G03", OWNER="grid", GROUP="asmadmin", MODE="0660"
+[root@iwak ~]# /sbin/partprobe /dev/sdd1
+[root@iwak ~]# /sbin/partprobe /dev/sde1
+[root@iwak ~]# /sbin/partprobe /dev/sdf1
+[root@iwak ~]# /sbin/partprobe /dev/sdg1
+[root@iwak ~]# /sbin/partprobe /dev/sdh1
+[root@iwak ~]# /sbin/partprobe /dev/sdi1
+[root@iwak ~]# /sbin/udevadm test /block/sdd/sdd1
+[root@iwak ~]# /sbin/udevadm test /block/sde/sde1
+[root@iwak ~]# /sbin/udevadm test /block/sdf/sdf1
+[root@iwak ~]# /sbin/udevadm test /block/sdg/sdg1
+[root@iwak ~]# /sbin/udevadm test /block/sdh/sdh1
+[root@iwak ~]# /sbin/udevadm test /block/sdi/sdi1
+[root@iwak ~]# /sbin/udevadm control --reload-rules
+[root@iwak ~]# ls -lah /dev/oracleasm/
+total 0
+drwxr-xr-x.  2 root root  160 Nov  7 16:20 .
+drwxr-xr-x. 22 root root 3,8K Nov  7 16:19 ..
+lrwxrwxrwx.  1 root root    7 Nov  7 16:20 DATA10G01 -> ../sdd1
+lrwxrwxrwx.  1 root root    7 Nov  7 16:21 DATA10G02 -> ../sde1
+lrwxrwxrwx.  1 root root    7 Nov  7 16:21 DATA10G03 -> ../sdf1
+lrwxrwxrwx.  1 root root    7 Nov  7 16:21 FRA5G01 -> ../sdg1
+lrwxrwxrwx.  1 root root    7 Nov  7 16:21 FRA5G02 -> ../sdh1
+lrwxrwxrwx.  1 root root    7 Nov  7 16:21 FRA5G03 -> ../sdi1
+[root@iwak ~]# ls -lah /dev/sd*
+brw-rw----. 1 root disk     8,   0 Nov  7 16:11 /dev/sda
+brw-rw----. 1 root disk     8,   1 Nov  7 16:11 /dev/sda1
+brw-rw----. 1 root disk     8,   2 Nov  7 16:11 /dev/sda2
+brw-rw----. 1 root disk     8,  16 Nov  7 16:11 /dev/sdb
+brw-rw----. 1 root disk     8,  17 Nov  7 16:11 /dev/sdb1
+brw-rw----. 1 root disk     8,  32 Nov  7 16:11 /dev/sdc
+brw-rw----. 1 root disk     8,  33 Nov  7 16:11 /dev/sdc1
+brw-rw----. 1 root disk     8,  48 Nov  7 16:13 /dev/sdd
+brw-rw----. 1 grid asmadmin 8,  49 Nov  7 16:20 /dev/sdd1
+brw-rw----. 1 root disk     8,  64 Nov  7 16:13 /dev/sde
+brw-rw----. 1 grid asmadmin 8,  65 Nov  7 16:21 /dev/sde1
+brw-rw----. 1 root disk     8,  80 Nov  7 16:13 /dev/sdf
+brw-rw----. 1 grid asmadmin 8,  81 Nov  7 16:21 /dev/sdf1
+brw-rw----. 1 root disk     8,  96 Nov  7 16:13 /dev/sdg
+brw-rw----. 1 grid asmadmin 8,  97 Nov  7 16:21 /dev/sdg1
+brw-rw----. 1 root disk     8, 112 Nov  7 16:13 /dev/sdh
+brw-rw----. 1 grid asmadmin 8, 113 Nov  7 16:21 /dev/sdh1
+brw-rw----. 1 root disk     8, 128 Nov  7 16:13 /dev/sdi
+brw-rw----. 1 grid asmadmin 8, 129 Nov  7 16:21 /dev/sdi1
+[root@iwak ~]#
