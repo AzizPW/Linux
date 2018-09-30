@@ -1,0 +1,1 @@
+prastyo@aziz-X42De:~/Documents$ rar a -m5 -ppwd789 -r /media/sda4/KAREPMU/.tmp5.rar *

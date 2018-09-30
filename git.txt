@@ -1,0 +1,98 @@
+prastyo@aziz-PU451LD:~/git/testing$ cd /media/sda4/DONT_OPEN/Kantor/MII-Metrodata/ILMU/Scripts/
+prastyo@aziz-PU451LD:/media/sda4/DONT_OPEN/Kantor/MII-Metrodata/ILMU/Scripts$ git init
+Initialized empty Git repository in /media/sda4/DONT_OPEN/Kantor/MII-Metrodata/ILMU/Scripts/.git/
+prastyo@aziz-PU451LD:/media/sda4/DONT_OPEN/Kantor/MII-Metrodata/ILMU/Scripts$ git add ASM*
+prastyo@aziz-PU451LD:/media/sda4/DONT_OPEN/Kantor/MII-Metrodata/ILMU/Scripts$ ls -lh ASM*
+-rwxrwxrwx 2 root root  17K Jan 24  2018 ASM-10.2.0.1 Installation Part 1.txt
+-rwxrwxrwx 2 root root 2,4K Jan 25  2018 ASM-10.2.0.1 Installation Part 2.txt
+-rwxrwxrwx 2 root root  16K Sep  2  2017 ASM-AddDiskToDG.txt
+-rwxrwxrwx 1 root root 4,3K Jan 11  2015 ASM-Install on Linux using oracleasm.txt
+-rwxrwxrwx 1 root root  835 Jun  6 10:16 ASM-Query.sql
+-rwxrwxrwx 1 root root  285 Mar 17  2016 ASM-RAC.sql
+prastyo@aziz-PU451LD:/media/sda4/DONT_OPEN/Kantor/MII-Metrodata/ILMU/Scripts$ git remote add origin https://github.com/AzizPW/Oracle.git
+prastyo@aziz-PU451LD:/media/sda4/DONT_OPEN/Kantor/MII-Metrodata/ILMU/Scripts$ git commit -m "Commit OK"
+[master (root-commit) d3fa9f1] Commit OK
+ 6 files changed, 881 insertions(+)
+ create mode 100644 ASM-10.2.0.1 Installation Part 1.txt
+ create mode 100644 ASM-10.2.0.1 Installation Part 2.txt
+ create mode 100644 ASM-AddDiskToDG.txt
+ create mode 100644 ASM-Install on Linux using oracleasm.txt
+ create mode 100644 ASM-Query.sql
+ create mode 100644 ASM-RAC.sql
+prastyo@aziz-PU451LD:/media/sda4/DONT_OPEN/Kantor/MII-Metrodata/ILMU/Scripts$ git push origin master
+Username for 'https://github.com': AzizPW
+Password for 'https://AzizPW@github.com': 
+Counting objects: 8, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (8/8), done.
+Writing objects: 100% (8/8), 8.04 KiB | 0 bytes/s, done.
+Total 8 (delta 0), reused 0 (delta 0)
+To https://github.com/AzizPW/Oracle.git
+ * [new branch]      master -> master
+prastyo@aziz-PU451LD:/media/sda4/DONT_OPEN/Kantor/MII-Metrodata/ILMU/Scripts$
+
+Error
+#####
+prastyo@aziz-PU451LD:/media/sda4/Linux_Unix_Windows/LINUX/Tulisan$ git push origin master
+Username for 'https://github.com': AzizPW
+Password for 'https://AzizPW@github.com': 
+To https://github.com/AzizPW/Linux.git
+ ! [rejected]        master -> master (fetch first)
+error: failed to push some refs to 'https://github.com/AzizPW/Linux.git'
+hint: Updates were rejected because the remote contains work that you do
+hint: not have locally. This is usually caused by another repository pushing
+hint: to the same ref. You may want to first integrate the remote changes
+hint: (e.g., 'git pull ...') before pushing again.
+hint: See the 'Note about fast-forwards' in 'git push --help' for details.
+prastyo@aziz-PU451LD:/media/sda4/Linux_Unix_Windows/LINUX/Tulisan$ git fetch origin
+warning: no common commits
+remote: Counting objects: 3, done.
+remote: Total 3 (delta 0), reused 0 (delta 0), pack-reused 0
+Unpacking objects: 100% (3/3), done.
+From https://github.com/AzizPW/Linux
+ * [new branch]      master     -> origin/master
+prastyo@aziz-PU451LD:/media/sda4/Linux_Unix_Windows/LINUX/Tulisan$ git merge origin master
+merge: origin - not something we can merge
+prastyo@aziz-PU451LD:/media/sda4/Linux_Unix_Windows/LINUX/Tulisan$ git pull origin master
+From https://github.com/AzizPW/Linux
+ * branch            master     -> FETCH_HEAD
+Merge made by the 'recursive' strategy.
+ README.md | 2 ++
+ 1 file changed, 2 insertions(+)
+ create mode 100644 README.md
+prastyo@aziz-PU451LD:/media/sda4/Linux_Unix_Windows/LINUX/Tulisan$ git push origin master
+Username for 'https://github.com': AzizPW
+Password for 'https://AzizPW@github.com': 
+Counting objects: 17, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (16/16), done.
+Writing objects: 100% (16/16), 8.77 KiB | 0 bytes/s, done.
+Total 16 (delta 2), reused 0 (delta 0)
+remote: Resolving deltas: 100% (2/2), done.
+To https://github.com/AzizPW/Linux.git
+   f6d2af1..ca62b96  master -> master
+prastyo@aziz-PU451LD:/media/sda4/Linux_Unix_Windows/LINUX/Tulisan$
+
+Delete Directory
+################
+prastyo@aziz-PU451LD:/media/sda4/DONT_OPEN/Kantor/MII-Metrodata/ILMU/Scripts$ git rm -r "Oracle Database 11g Performance Tuning Ed 2"
+rm 'Oracle Database 11g Performance Tuning Ed 2/Jumat.sql'
+rm 'Oracle Database 11g Performance Tuning Ed 2/Kamis.sql'
+rm 'Oracle Database 11g Performance Tuning Ed 2/Rabu.sql'
+rm 'Oracle Database 11g Performance Tuning Ed 2/Selasa.sql'
+rm 'Oracle Database 11g Performance Tuning Ed 2/Senin.sql'
+rm 'Oracle Database 11g Performance Tuning Ed 2/awrrpt_1_180_181.html'
+rm 'Oracle Database 11g Performance Tuning Ed 2/initorcl.ora'
+rm 'Oracle Database 11g Performance Tuning Ed 2/initorcl_SHARED.ora'
+prastyo@aziz-PU451LD:/media/sda4/DONT_OPEN/Kantor/MII-Metrodata/ILMU/Scripts$ git commit -m "Delete OracleTuning"
+[master c590f59] Delete OracleTuning
+ 8 files changed, 3154 deletions(-)
+ delete mode 100644 Oracle Database 11g Performance Tuning Ed 2/Jumat.sql
+ delete mode 100644 Oracle Database 11g Performance Tuning Ed 2/Kamis.sql
+ delete mode 100644 Oracle Database 11g Performance Tuning Ed 2/Rabu.sql
+ delete mode 100644 Oracle Database 11g Performance Tuning Ed 2/Selasa.sql
+ delete mode 100644 Oracle Database 11g Performance Tuning Ed 2/Senin.sql
+ delete mode 100644 Oracle Database 11g Performance Tuning Ed 2/awrrpt_1_180_181.html
+ delete mode 100644 Oracle Database 11g Performance Tuning Ed 2/initorcl.ora
+ delete mode 100644 Oracle Database 11g Performance Tuning Ed 2/initorcl_SHARED.ora
+prastyo@aziz-PU451LD:/media/sda4/DONT_OPEN/Kantor/MII-Metrodata/ILMU/Scripts$ git push origin master

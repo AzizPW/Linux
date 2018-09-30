@@ -1,0 +1,22 @@
+Sudo apt-get install lm-sensors hddtemp
+
+Set up lm-sensor:
+sudo sensors-detect
+Dan jawab "Y" aja terus
+
+Nyalakan servicenya :
+sudo service module-init-tools start
+
+Instal Psensor :
+sudo apt-get install psensor
+
+atau
+sudo add-apt-repository ppa:jfi/ppa   atau   sudo add-apt-repository ppa:jfi/psensor-unstable 
+sudo apt-get update 
+sudo apt-get install psensor
+
+nah Selsai deh kawan,sekarang kita jalanin deh
+-Via terminal
+Psensor
+-Via Menu Application
+Application >> System Tools >> Psensor

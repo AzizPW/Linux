@@ -1,0 +1,23 @@
+Source: http://www.itzgeek.com/how-tos/mini-howtos/how-to-clear-swap-memory-in-linux-centos-rhel.html#axzz31ZnM67O6
+
+How to clear Swap Memory in Linux / CentOS / RHEL
+-------------------------------------------------
+Virtual Memory is called as Swap space in Linux and  is used when the physical memory (RAM) is full. When the system needs more memory and the RAM is full, inactive pages in the memory will be moved to the swap space. Swap is not a replacement to physical memory,  it is just a small portion on hard drive; it must be created during the installation. It is better to have swap space equal to 2X RAM.
+
+Sometimes, system will use full amount of swap memory even when the system has enough physical memory available, this happens because inactive pages that are moved to swap during the high memory usage have not gone back to the physical memory in normal condition. That time we have to manually clear (Move the inactive page to Physical RAM) by using the following command.
+
+First issue the following command to initiate the move, this will take time depends on size of the swap memory.
+
+PS: You must have enough physical memory available on the system before initiating the following commands, that means
+
+Swap Memory = Free Memory of Physical RAM.
+
+If you want to clear the 2GB of swap memory, you need to have more than 2GB free memory on the physical memory RAM.
+
+swapoff -a
+
+Once the above command completed successfully, issue the following command to re enable the swap.
+
+swapon -a
+
+That's all.

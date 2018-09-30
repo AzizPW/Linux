@@ -1,0 +1,32 @@
+[root@centos71511 u01]# hostnamectl status
+   Static hostname: centos71511.localdomain
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: 0e7f6373f93c40f3b883d1a7657ad5b7
+           Boot ID: 7c382ddd875c439992f83083161f3b14
+    Virtualization: vmware
+  Operating System: CentOS Linux 7 (Core)
+       CPE OS Name: cpe:/o:centos:centos:7
+            Kernel: Linux 3.10.0-327.el7.x86_64
+      Architecture: x86-64
+[root@centos71511 u01]# hostnamectl set-hostname italia
+[root@centos71511 u01]# hostnamectl set-hostname italia.motogp.com --static
+[root@centos71511 u01]# hostname
+italia.motogp.com
+[root@centos71511 u01]# nano /etc/hosts
+[root@centos71511 u01]# cat /etc/hosts
+127.0.0.1   localhost localhost.localdomain localhost4 localhost4.localdomain4
+::1         localhost localhost.localdomain localhost6 localhost6.localdomain6
+192.168.23.5    italia.motogp.com       italia
+[root@centos71511 u01]# hostnamectl status
+   Static hostname: italia.motogp.com
+         Icon name: computer-vm
+           Chassis: vm
+        Machine ID: 0e7f6373f93c40f3b883d1a7657ad5b7
+           Boot ID: 7c382ddd875c439992f83083161f3b14
+    Virtualization: vmware
+  Operating System: CentOS Linux 7 (Core)
+       CPE OS Name: cpe:/o:centos:centos:7
+            Kernel: Linux 3.10.0-327.el7.x86_64
+      Architecture: x86-64
+[root@centos71511 u01]#

@@ -1,0 +1,58 @@
+<title>LINUX ZIP MAXIMUM COMPRESSION</title>
+<body>
+  <p align="justify"><font face="Segoe UI" color="navy">Assalamu'alaikum ..</font></p>
+  <p align="justify"><font face="Segoe UI">Halo pembaca, pada postingan kali ini saya akan berbagi ilmu mengenai <b>ZIP compression</b> di Linux tetapi bisa juga dilakukan di UNIX dan Microsoft Windows, namun saya demokan di Linux. Sebagai informasi, Linux yang saya gunakan adalah <b>Redhat 5.3 x64</b> (server kantor hehehe). Oke, mari lanjut demo di paragraf berikutnya.</font></p>
+  <table style="width:100%" border=1>
+    <tr>
+      <td><tt>-sh-3.2$ lsb_release -a<br>
+LSB Version:    :core-3.1-amd64:core-3.1-ia32:core-3.1-noarch:graphics-3.1-amd64:graphics-3.1-ia32:graphics-3.1-noarch<br>
+Distributor ID: RedHatEnterpriseServer<br>
+Description:    Red Hat Enterprise Linux Server release 5.3 (Tikanga)<br>
+Release:        5.3<br>
+Codename:       Tikanga<br>
+-sh-3.2$</tt></td>
+    </tr>
+  </table>
+  <p align="justify"><font face="Segoe UI">Target yang akan saya kompres adalah seluruh file yang ada di direktori <b>/export/home/users/oracle/mii/20140625</b> sebesar <b>58MB</b>. Berikut ini detilnya</font></p>
+  <table style="width:100%" border=1>
+    <tr>
+      <td><tt>-sh-3.2$ cd /export/home/users/oracle/mii/20140625 && du -sh . && ls -lh<br>
+58M     .<br>
+total 18M<br>
+-rw-r--r-- 1 oracle oinstall 5.4K Jun 25 11:28 addmrpt_1_27672_27673.txt<br>
+-rw-r--r-- 1 oracle oinstall  17M Jun 25 11:25 alert_mtms.log<br>
+-rw-r--r-- 1 oracle oinstall 313K Jun 25 11:28 awrrpt_1_27672_27673.html<br>
+-rw-r--r-- 1 oracle oinstall  10K Jun 25 11:25 CTL_BKP.TRC<br>
+drwxr-xr-x 7 oracle oinstall 2.0K Apr 22 10:34 orasnap<br>
+-rw-r--r-- 1 oracle oinstall  54K Jun 25 11:27 PARAMETER.TXT<br>
+-sh-3.2$</tt></td>
+    </tr>
+  </table>
+  <p align="justify"><font face="Segoe UI">Selanjutnya saya akan letakkan file ZIP-nya di <b>/export/home/users/oracle/mii/</b>. Sintak untuk mengkompresnya adalah <b><tt>zip filearchive.zip filetarget</tt></b>, namun saya gunakan adalah maximum compression dengan menambahkan parameter <b>-9</b>. Zip compression ada 10 tipe yaitu dari 0 sampai 9, dimana 0 adalah paling cepat proses kompresnya dan tidak melakukan compression, sedangkan 9 adalah maximum compression yang akan memakan waktu lebih lama. Bila kita melakukan compression dengan ZIP tanpa ada parameter 0 sampai 9, maka default-nya zip tersebut menggunakan tingkan kompresi 6 (dari berbagai sumber web).</font></p>
+  <p align="justify"><font face="Segoe UI">Mari kita eksekusi, ZIP dimulai. Sebagai tambahan saya akan menambahkan parameter <b>-r</b> pada sintaks, karena saya akan mengkompres folder orasnap di dalamnya, maka dari itu perlu parameter -r (recursive).</font></p>
+  <table style="width:100%" border=1>
+    <tr>
+      <td><tt>-sh-3.2$ zip -9 -r ../20140625_9.zip *<br>
+  adding: addmrpt_1_27672_27673.txt (deflated 70%)<br>
+  adding: alert_mtms.log (deflated 94%)<br>
+  adding: awrrpt_1_27672_27673.html (deflated 89%)<br>
+  adding: CTL_BKP.TRC (deflated 80%)<br>
+  adding: orasnap/ (stored 0%)<br>
+  adding: orasnap/notes/ (stored 0%)<br>
+  adding: orasnap/notes/usermod.htm (deflated 50%)<br>
+  ...<br>
+  adding: orasnap/snapminirun.sql (stored 0%)<br>
+  adding: PARAMETER.TXT (deflated 94%)<br>
+-sh-3.2$<br>
+-sh-3.2$ <br>
+-sh-3.2$ du -sh ../20140625_9.zip<br>
+2.7M    ../20140625_9.zip<br>
+-sh-3.2$ ls -lh ../20140625_9.zip<br>
+-rw-r--r-- 1 oracle oinstall 2.7M Aug 21 10:46 ../20140625_9.zip<br>
+-sh-3.2$</tt></td>
+    </tr>
+  </table>
+  <p align="justify"><font face="Segoe UI">Nah, setelah selesai kompres hasilnya hanya 2.7MB, lumayan kan pake maximum compression :D :) .. Demikian deh tutorial sederhananya, semoga bermanfaat yah, selamat mencoba ;)</font></p>
+  <p align="justify"><font face="Segoe UI" color="navy">Wassalamu'alaikum ..</font></p>
+  <center><a href="http://www.facebook.com/prastyowibowo/" target="_blank"><font face="Segoe UI" color="darkred">Aziz Prastyo Wibowo</font></a></center>
+</body>

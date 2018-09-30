@@ -1,0 +1,44 @@
+How to open port in RHEL 6
+==========================
+[root@gotham oradata]# iptables -I INPUT -p tcp --dport 1546 -j ACCEPT
+[root@gotham oradata]# iptables -I INPUT -p tcp --dport 5500 -j ACCEPT
+[root@gotham oradata]# iptables -L -n
+Chain INPUT (policy ACCEPT)
+target     prot opt source               destination         
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:5500 
+ACCEPT     tcp  --  0.0.0.0/0            0.0.0.0/0           tcp dpt:1546 
+
+Chain FORWARD (policy ACCEPT)
+target     prot opt source               destination         
+
+Chain OUTPUT (policy ACCEPT)
+target     prot opt source               destination         
+[root@gotham oradata]# /sbin/service iptables save
+iptables: Saving firewall rules to /etc/sysconfig/iptables:[  OK  ]
+[root@gotham oradata]#
+
+How to open port in RHEL 7
+==========================
+[root@pitik orekel]# firewall-cmd --zone=public --add-port=1521/tcp --permanent
+success
+[root@pitik orekel]# firewall-cmd --reload
+success
+[root@pitik orekel]# iptables-save | grep 1521
+-A IN_public_allow -p tcp -m tcp --dport 1521 -m conntrack --ctstate NEW -j ACCEPT
+[root@pitik orekel]# /sbin/service iptables save
+
+How to remove port in RHEL 6
+============================
+# iptables -L INPUT --line-numbers
+# iptables -D INPUT 2
+
+How to remove port in RHEL 7
+============================
+[root@rhel7 ~]# iptables-save | grep 80
+-A IN_public_allow -p tcp -m tcp --dport 80 -m conntrack --ctstate NEW -j ACCEPT
+[root@rhel7 ~]# firewall-cmd --zone=public --remove-port=80/tcp --permanent
+success
+[root@rhel7 ~]# firewall-cmd --reload
+success
+[root@rhel7 ~]# iptables-save | grep 80
+[root@rhel7 ~]#

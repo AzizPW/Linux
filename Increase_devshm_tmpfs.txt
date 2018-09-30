@@ -1,0 +1,15 @@
+RHEL < 7
+--------
+nano /etc/fstab
+---------------
+tmpfs /dev/shm tmpfs defaults,size=512m 0 0
+tmpfs /dev/shm tmpfs defaults,size=2g 0 0
+
+RHEL >= 7
+---------
+[root@italia ~]# cat /root/devshm.sh
+#!/bin/sh
+mount -o remount,size=2g /dev/shm
+[root@italia ~]# crontab -l
+@reboot sh /root/devshm.sh
+[root@italia ~]#

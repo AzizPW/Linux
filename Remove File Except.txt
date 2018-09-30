@@ -1,0 +1,16 @@
+Remove File Except
+==================
+[grid@spiderman ~]$ cd Downloads/; ls -lh
+total 36K
+-rw-r--r--. 1 grid oinstall 25K Mei 22 15:45 grid.txt.rsp
+-rwxr-xr-x. 1 grid oinstall  87 Mei 22 15:14 startDB.sh
+-rwxr-xr-x. 1 grid oinstall 169 Mei 22 15:14 stopDB.sh
+[grid@spiderman Downloads]$ shopt -s extglob
+[grid@spiderman Downloads]$ rm -v !(startDB.sh|stopDB.sh)
+removed `grid.txt.rsp'
+[grid@spiderman Downloads]$ ls -lh
+total 8,0K
+-rwxr-xr-x. 1 grid oinstall  87 Mei 22 15:53 startDB.sh
+-rwxr-xr-x. 1 grid oinstall 169 Mei 22 15:53 stopDB.sh
+[grid@spiderman Downloads]$ shopt -u extglob
+[grid@spiderman Downloads]$

@@ -1,0 +1,36 @@
+#######################
+Manual mount
+#######################
+[root@spiderman ~]# mount /root/OracleLinux-R6-U7-Server-x86_64-dvd /media/OEL6.7 -o loop
+[root@spiderman ~]# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sda1              32G  7.8G   22G  27% /
+tmpfs                 4.8G  1.1M  4.8G   1% /dev/shm
+/dev/sdb1             296G  128G  154G  46% /Stage122
+/dev/sdc1             493G   71M  467G   1% /z500
+/root/OracleLinux-R6-U7-Server-x86_64-dvd.iso
+                      3.7G  3.7G     0 100% /media/OEL6.7
+[root@spiderman ~]#
+
+#######################
+Auto Mount After Reboot
+#######################
+[root@spiderman ~]# cat /etc/fstab
+
+#
+# /etc/fstab
+# Created by anaconda on Fri Mar 10 04:53:00 2017
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+UUID=e6d58413-1619-4338-a556-c1227689cd57 /                       ext4    defaults        1 1
+UUID=3dac875e-240f-4c96-8787-aec04f368619 swap                    swap    defaults        0 0
+tmpfs                   /dev/shm                tmpfs   defaults        0 0
+devpts                  /dev/pts                devpts  gid=5,mode=620  0 0
+sysfs                   /sys                    sysfs   defaults        0 0
+proc                    /proc                   proc    defaults        0 0
+UUID=7107cd17-e76f-4300-bb40-7d6bb44030e9       /Stage122       ext4    defaults        0 0
+UUID=f943aa94-87ca-4bb6-9975-f09d514a36ac       /z500           ext4    defaults        0 0
+/root/OracleLinux-R6-U7-Server-x86_64-dvd.iso   /media/OEL6.7   iso9660 loop    0 0
+[root@spiderman ~]#

@@ -1,0 +1,45 @@
+scsi_id Not Shown Any Output on VMWare 12.5.X
+#############################################
+shanum@AsusX42DE:~$ ssh root@ikan
+The authenticity of host 'ikan (192.168.58.11)' can't be established.
+ECDSA key fingerprint is fc:fd:16:c5:2e:b9:33:af:8f:d3:3f:0c:96:14:39:af.
+Are you sure you want to continue connecting (yes/no)? yes
+Warning: Permanently added 'ikan,192.168.58.11' (ECDSA) to the list of known hosts.
+root@ikan's password: 
+Last login: Fri Nov  3 16:12:16 2017 from 192.168.58.1
+[root@ikan ~]# df -h
+Filesystem                 Size  Used Avail Use% Mounted on
+/dev/sda1                   27G  3,9G   24G  15% /
+devtmpfs                   1,4G     0  1,4G   0% /dev
+tmpfs                      2,0G     0  2,0G   0% /dev/shm
+tmpfs                      1,4G  9,0M  1,4G   1% /run
+tmpfs                      1,4G     0  1,4G   0% /sys/fs/cgroup
+/dev/mapper/vg_z01-lv_z01  9,3G  7,3G  1,5G  84% /z01
+/dev/mapper/vg_z02-lv_z02   15G  2,0G   12G  15% /z02
+tmpfs                      284M  8,0K  284M   1% /run/user/42
+tmpfs                      284M     0  284M   0% /run/user/0
+[root@ikan ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sda1
+[root@ikan ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sda
+[root@ikan ~]# init 0
+Connection to ikan closed by remote host.
+Connection to ikan closed.
+shanum@AsusX42DE:~$ vi /media/sda4/vmware/CentOS7.1708-DB12.2.0.1/CentOS7.1708-DB12.2.0.1.vmx
+shanum@AsusX42DE:~$ grep UUID /media/sda4/vmware/CentOS7.1708-DB12.2.0.1/CentOS7.1708-DB12.2.0.1.vmx
+disk.EnableUUID = "TRUE"
+shanum@AsusX42DE:~$
+
+##Starting the vmware
+
+shanum@AsusX42DE:~$ ssh root@ikan
+root@ikan's password: 
+Last login: Tue Nov  7 03:53:29 2017 from 192.168.58.1
+[root@ikan ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sda
+36000c296008c1f5eb101ff9fcc7070a8
+[root@ikan ~]# /usr/lib/udev/scsi_id -g -u -d /dev/sda1
+36000c296008c1f5eb101ff9fcc7070a8
+[root@ikan ~]# cat /etc/centos-release
+CentOS Linux release 7.4.1708 (Core) 
+[root@ikan ~]# poweroff
+Connection to ikan closed by remote host.
+Connection to ikan closed.
+shanum@AsusX42DE:~$

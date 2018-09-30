@@ -1,0 +1,264 @@
+LVM Create
+==========
+http://www.unixarena.com/2013/08/linux-lvm-re-sizing-logical-volume.html
+https://getsomeoracle.wordpress.com/2015/10/06/how-to-add-more-space-in-pre-existing-mount-point-using-lvm-rheloel-6/
+http://www.thegeekstuff.com/2010/08/how-to-create-lvm
+[root@spiderman grid]# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+/dev/sda1        32G  9.4G   21G  32% /
+tmpfs           3.0G   72K  3.0G   1% /dev/shm
+/dev/sdb1        15G  8.1G  5.8G  59% /z01
+[root@spiderman grid]# init 0
+
+Add disk lvm3-01.vmdk and lvm2-01.vmdk and startup
+
+[root@spiderman oracle]# ls -lh /dev/sd*
+brw-rw----. 1 root disk 8,   0 Mei 22 12:47 /dev/sda
+brw-rw----. 1 root disk 8,   1 Mei 22 12:47 /dev/sda1
+brw-rw----. 1 root disk 8,   2 Mei 22 12:47 /dev/sda2
+brw-rw----. 1 root disk 8,  16 Mei 22 12:47 /dev/sdb
+brw-rw----. 1 root disk 8,  17 Mei 22 12:47 /dev/sdb1
+brw-rw----. 1 root disk 8,  32 Mei 22 12:48 /dev/sdc
+brw-rw----. 1 root disk 8,  33 Mei 22 12:48 /dev/sdc1
+brw-rw----. 1 root disk 8,  48 Mei 22 12:48 /dev/sdd
+brw-rw----. 1 root disk 8,  49 Mei 22 12:48 /dev/sdd1
+brw-rw----. 1 root disk 8,  64 Mei 22 12:48 /dev/sde
+brw-rw----. 1 root disk 8,  65 Mei 22 12:48 /dev/sde1
+brw-rw----. 1 root disk 8,  80 Mei 22 12:48 /dev/sdf
+brw-rw----. 1 root disk 8,  81 Mei 22 12:48 /dev/sdf1
+brw-rw----. 1 root disk 8,  96 Mei 22 12:48 /dev/sdg
+brw-rw----. 1 root disk 8,  97 Mei 22 12:48 /dev/sdg1
+brw-rw----. 1 root disk 8, 112 Mei 22 12:48 /dev/sdh
+brw-rw----. 1 root disk 8, 113 Mei 22 12:48 /dev/sdh1
+brw-rw----. 1 root disk 8, 128 Mei 22 12:47 /dev/sdi
+brw-rw----. 1 root disk 8, 144 Mei 22 12:47 /dev/sdj
+[root@spiderman oracle]# fdisk /dev/sdi
+Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disklabel
+Building a new DOS disklabel with disk identifier 0x566b32d0.
+Changes will remain in memory only, until you decide to write them.
+After that, of course, the previous content won't be recoverable.
+
+Warning: invalid flag 0x0000 of partition table 4 will be corrected by w(rite)
+
+WARNING: DOS-compatible mode is deprecated. It's strongly recommended to
+         switch off the mode (command 'c') and change display units to
+         sectors (command 'u').
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 1
+First cylinder (1-391, default 1): 
+Using default value 1
+Last cylinder, +cylinders or +size{K,M,G} (1-391, default 391): 
+Using default value 391
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@spiderman oracle]# fdisk /dev/sdj
+Device contains neither a valid DOS partition table, nor Sun, SGI or OSF disklabel
+Building a new DOS disklabel with disk identifier 0x5d4eaf9c.
+Changes will remain in memory only, until you decide to write them.
+After that, of course, the previous content won't be recoverable.
+
+Warning: invalid flag 0x0000 of partition table 4 will be corrected by w(rite)
+
+WARNING: DOS-compatible mode is deprecated. It's strongly recommended to
+         switch off the mode (command 'c') and change display units to
+         sectors (command 'u').
+
+Command (m for help): n
+Command action
+   e   extended
+   p   primary partition (1-4)
+p
+Partition number (1-4): 1
+First cylinder (1-261, default 1): 
+Using default value 1
+Last cylinder, +cylinders or +size{K,M,G} (1-261, default 261): 
+Using default value 261
+
+Command (m for help): w
+The partition table has been altered!
+
+Calling ioctl() to re-read partition table.
+Syncing disks.
+[root@spiderman oracle]# echo Example pvcreate /dev/sda6 /dev/sda7
+Example pvcreate /dev/sda6 /dev/sda7
+[root@spiderman oracle]# pvcreate /dev/sdi1
+  Physical volume "/dev/sdi1" successfully created
+[root@spiderman oracle]# pvdisplay
+  "/dev/sdi1" is a new physical volume of "3,00 GiB"
+  --- NEW Physical volume ---
+  PV Name               /dev/sdi1
+  VG Name               
+  PV Size               3,00 GiB
+  Allocatable           NO
+  PE Size               0   
+  Total PE              0
+  Free PE               0
+  Allocated PE          0
+  PV UUID               MiX44K-3cE5-aHOl-x3Au-fxgQ-iRLE-c47K73
+   
+[root@spiderman oracle]# pvscan
+  PV /dev/sdi1         lvm2 [3,00 GiB]
+  Total: 1 [3,00 GiB] / in use: 0 [0   ] / in no VG: 1 [3,00 GiB]
+[root@spiderman oracle]# pvdisplay
+  "/dev/sdi1" is a new physical volume of "3,00 GiB"
+  --- NEW Physical volume ---
+  PV Name               /dev/sdi1
+  VG Name               
+  PV Size               3,00 GiB
+  Allocatable           NO
+  PE Size               0   
+  Total PE              0
+  Free PE               0
+  Allocated PE          0
+  PV UUID               MiX44K-3cE5-aHOl-x3Au-fxgQ-iRLE-c47K73
+   
+[root@spiderman oracle]# echo Create volume group
+Create volume group
+[root@spiderman oracle]# vgcreate vol_grp1 /dev/sdi1
+  Volume group "vol_grp1" successfully created
+[root@spiderman oracle]# vgdisplay
+  --- Volume group ---
+  VG Name               vol_grp1
+  System ID             
+  Format                lvm2
+  Metadata Areas        1
+  Metadata Sequence No  1
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                0
+  Open LV               0
+  Max PV                0
+  Cur PV                1
+  Act PV                1
+  VG Size               2,99 GiB
+  PE Size               4,00 MiB
+  Total PE              766
+  Alloc PE / Size       0 / 0   
+  Free  PE / Size       766 / 2,99 GiB
+  VG UUID               NgHoVh-lZaw-MBoE-X3e5-P9HK-KaVE-55kABU
+   
+[root@spiderman oracle]# lvcreate -L 3060M -n vg1 vol_grp1
+  Logical volume "vg1" created.
+[root@spiderman oracle]# lvdisplay
+  --- Logical volume ---
+  LV Path                /dev/vol_grp1/vg1
+  LV Name                vg1
+  VG Name                vol_grp1
+  LV UUID                LYtvnm-2SsS-nt8m-CO3I-VLKF-CkzL-bAnQQe
+  LV Write Access        read/write
+  LV Creation host, time spiderman.marvel.com, 2017-05-22 13:07:17 +0700
+  LV Status              available
+  # open                 0
+  LV Size                2,99 GiB
+  Current LE             765
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     256
+  Block device           252:0
+   
+[root@spiderman oracle]# ls -lh /dev/vol_grp1/vg1 
+lrwxrwxrwx. 1 root root 7 Mei 22 13:07 /dev/vol_grp1/vg1 -> ../dm-0
+[root@spiderman oracle]# mkfs.ext4 /dev/vol_grp1/vg1
+mke2fs 1.43-WIP (20-Jun-2013)
+Filesystem label=
+OS type: Linux
+Block size=4096 (log=2)
+Fragment size=4096 (log=2)
+Stride=0 blocks, Stripe width=0 blocks
+195840 inodes, 783360 blocks
+39168 blocks (5.00%) reserved for the super user
+First data block=0
+Maximum filesystem blocks=805306368
+24 block groups
+32768 blocks per group, 32768 fragments per group
+8160 inodes per group
+Superblock backups stored on blocks: 
+	32768, 98304, 163840, 229376, 294912
+
+Allocating group tables: done                            
+Writing inode tables: done                            
+Creating journal (16384 blocks): done
+Writing superblocks and filesystem accounting information: done 
+
+[root@spiderman oracle]# ls -lh /dev/disk/by-uuid/
+total 0
+lrwxrwxrwx. 1 root root 10 Mei 22 12:47 3dac875e-240f-4c96-8787-aec04f368619 -> ../../sda2
+lrwxrwxrwx. 1 root root 10 Mei 22 12:47 6e66e1b0-1755-4b96-8f47-587ac88724e5 -> ../../sdb1
+lrwxrwxrwx. 1 root root 10 Mei 22 13:09 abf924be-7dfe-4436-a334-023faa6e4f41 -> ../../dm-0
+lrwxrwxrwx. 1 root root 10 Mei 22 12:47 e6d58413-1619-4338-a556-c1227689cd57 -> ../../sda1
+[root@spiderman oracle]# mkdir /z02; nano /etc/fstab
+[root@spiderman oracle]# cat /etc/fstab 
+
+#
+# /etc/fstab
+# Created by anaconda on Fri Mar 10 04:53:00 2017
+#
+# Accessible filesystems, by reference, are maintained under '/dev/disk'
+# See man pages fstab(5), findfs(8), mount(8) and/or blkid(8) for more info
+#
+UUID=e6d58413-1619-4338-a556-c1227689cd57 /                       ext4    defaults        1 1
+UUID=3dac875e-240f-4c96-8787-aec04f368619 swap                    swap    defaults        0 0
+tmpfs                   /dev/shm                tmpfs   defaults,size=3g        0 0
+devpts                  /dev/pts                devpts  gid=5,mode=620  0 0
+sysfs                   /sys                    sysfs   defaults        0 0
+proc                    /proc                   proc    defaults        0 0
+UUID=6e66e1b0-1755-4b96-8f47-587ac88724e5	/z01	ext4	defaults	0 0
+UUID=abf924be-7dfe-4436-a334-023faa6e4f41	/z02	ext4	defaults	0 0
+[root@spiderman oracle]# mount /dev/vol_grp1/vg1 /z02
+[root@spiderman oracle]# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sda1              32G  9,4G   21G  32% /
+tmpfs                 3,0G  354M  2,7G  12% /dev/shm
+/dev/sdb1              15G  8,1G  5,8G  59% /z01
+/dev/mapper/vol_grp1-vg1
+                      2,9G  4,5M  2,8G   1% /z02
+[root@spiderman oracle]# chown -R oracle:oinstall /z02
+[root@spiderman oracle]# ls -lh /
+total 108K
+dr-xr-xr-x.   2 root   root     4,0K Mei  4 04:25 bin
+dr-xr-xr-x.   4 root   root     4,0K Mar 10 05:15 boot
+drwxr-xr-x.  21 root   root     4,3K Mei 22 13:07 dev
+drwxr-xr-x. 119 root   root      12K Mei 22 13:12 etc
+drwxr-xr-x.   4 root   root     4,0K Mei  4 01:25 home
+dr-xr-xr-x.  11 root   root     4,0K Mar  9 22:58 lib
+dr-xr-xr-x.   9 root   root      12K Mei  4 04:25 lib64
+drwx------.   2 root   root      16K Mar 10 04:51 lost+found
+drwxr-xr-x.   3 root   root     4,0K Mar  9 22:39 media
+drwxr-xr-x.   2 root   root        0 Mei 22 12:48 misc
+drwxr-xr-x.   3 root   root     4,0K Mar  9 22:24 mnt
+drwxr-xr-x.   2 root   root        0 Mei 22 12:48 net
+drwxr-xr-x.   6 root   root     4,0K Mei 17 17:41 opt
+dr-xr-xr-x. 236 root   root        0 Mei 22 12:47 proc
+dr-xr-x---.  29 root   root     4,0K Mei 17 22:56 root
+dr-xr-xr-x.   2 root   root      12K Mei  4 04:25 sbin
+drwxr-xr-x.   7 root   root        0 Mei 22 12:47 selinux
+drwxr-xr-x.   2 root   root     4,0K Nov  1 2011 srv
+dr-xr-xr-x.  13 root   root        0 Mei 22 12:47 sys
+drwxrwxrwt.  19 root   root     4,0K Mei 22 13:04 tmp
+drwxr-xr-x.  13 root   root     4,0K Mar 10 04:53 usr
+drwxr-xr-x.  22 root   root     4,0K Mar 10 05:05 var
+drwxr-xr-x.   4 oracle oinstall 4,0K Mei  4 01:41 z01
+drwxr-xr-x.   3 oracle oinstall 4,0K Mei 22 13:09 z02
+[root@spiderman oracle]#
+
+[oracle@spiderman ~]$ lsusb>>/z02/lsusb.txt
+[oracle@spiderman ~]$ lspci>>/z02/lspci.txt
+[oracle@spiderman ~]$ lscpu>>/z02/lscpu.txt
+[oracle@spiderman ~]$ ls -lh /z02
+total 28K
+drwx------. 2 oracle oinstall  16K Mei 22 13:09 lost+found
+-rw-r--r--. 1 oracle oinstall  600 Mei 22 13:15 lscpu.txt
+-rw-r--r--. 1 oracle oinstall 2,8K Mei 22 13:15 lspci.txt
+-rw-r--r--. 1 oracle oinstall  185 Mei 22 13:14 lsusb.txt
+[oracle@spiderman ~]$

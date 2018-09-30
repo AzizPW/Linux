@@ -1,0 +1,108 @@
+LVM Increase LUN
+================
+[root@spiderman oracle]# pvs
+  PV         VG       Fmt  Attr PSize PFree
+  /dev/sdi1  vol_grp1 lvm2 a--  2,99g    0 
+[root@spiderman oracle]# vgextend vol_grp1 /dev/sdj1
+  Physical volume "/dev/sdj1" successfully created
+  Volume group "vol_grp1" successfully extended
+[root@spiderman oracle]# vgdisplay
+  --- Volume group ---
+  VG Name               vol_grp1
+  System ID             
+  Format                lvm2
+  Metadata Areas        2
+  Metadata Sequence No  4
+  VG Access             read/write
+  VG Status             resizable
+  MAX LV                0
+  Cur LV                1
+  Open LV               1
+  Max PV                0
+  Cur PV                2
+  Act PV                2
+  VG Size               4,99 GiB
+  PE Size               4,00 MiB
+  Total PE              1277
+  Alloc PE / Size       766 / 2,99 GiB
+  Free  PE / Size       511 / 2,00 GiB
+  VG UUID               NgHoVh-lZaw-MBoE-X3e5-P9HK-KaVE-55kABU
+   
+[root@spiderman oracle]# pvs
+  PV         VG       Fmt  Attr PSize PFree
+  /dev/sdi1  vol_grp1 lvm2 a--  2,99g    0 
+  /dev/sdj1  vol_grp1 lvm2 a--  2,00g 2,00g
+[root@spiderman oracle]# lvdisplay
+  --- Logical volume ---
+  LV Path                /dev/vol_grp1/vg1
+  LV Name                vg1
+  VG Name                vol_grp1
+  LV UUID                LYtvnm-2SsS-nt8m-CO3I-VLKF-CkzL-bAnQQe
+  LV Write Access        read/write
+  LV Creation host, time spiderman.marvel.com, 2017-05-22 13:07:17 +0700
+  LV Status              available
+  # open                 1
+  LV Size                2,99 GiB
+  Current LE             766
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     256
+  Block device           252:0
+   
+[root@spiderman oracle]# vgscan
+  Reading all physical volumes.  This may take a while...
+  Found volume group "vol_grp1" using metadata type lvm2
+[root@spiderman oracle]# lvdisplay
+  --- Logical volume ---
+  LV Path                /dev/vol_grp1/vg1
+  LV Name                vg1
+  VG Name                vol_grp1
+  LV UUID                LYtvnm-2SsS-nt8m-CO3I-VLKF-CkzL-bAnQQe
+  LV Write Access        read/write
+  LV Creation host, time spiderman.marvel.com, 2017-05-22 13:07:17 +0700
+  LV Status              available
+  # open                 1
+  LV Size                2,99 GiB
+  Current LE             766
+  Segments               1
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     256
+  Block device           252:0
+   
+[root@spiderman oracle]# lvextend -L +1G /dev/vol_grp1/vg1 
+  Size of logical volume vol_grp1/vg1 changed from 2,99 GiB (766 extents) to 3,99 GiB (1022 extents).
+  Logical volume vg1 successfully resized
+[root@spiderman oracle]# lvdisplay /dev/vol_grp1/vg1 
+  --- Logical volume ---
+  LV Path                /dev/vol_grp1/vg1
+  LV Name                vg1
+  VG Name                vol_grp1
+  LV UUID                LYtvnm-2SsS-nt8m-CO3I-VLKF-CkzL-bAnQQe
+  LV Write Access        read/write
+  LV Creation host, time spiderman.marvel.com, 2017-05-22 13:07:17 +0700
+  LV Status              available
+  # open                 1
+  LV Size                3,99 GiB
+  Current LE             1022
+  Segments               2
+  Allocation             inherit
+  Read ahead sectors     auto
+  - currently set to     256
+  Block device           252:0
+   
+[root@spiderman oracle]# resize2fs /dev/vol_grp1/vg1 
+resize2fs 1.43-WIP (20-Jun-2013)
+Filesystem at /dev/vol_grp1/vg1 is mounted on /z02; on-line resizing required
+old_desc_blocks = 1, new_desc_blocks = 1
+The filesystem on /dev/vol_grp1/vg1 is now 1046528 blocks long.
+
+[root@spiderman oracle]# df -h
+Filesystem            Size  Used Avail Use% Mounted on
+/dev/sda1              32G  9,4G   21G  32% /
+tmpfs                 3,0G  363M  2,7G  12% /dev/shm
+/dev/sdb1              15G  8,1G  5,8G  59% /z01
+/dev/mapper/vol_grp1-vg1
+                      3,9G  6,1M  3,7G   1% /z02
+[root@spiderman oracle]#

@@ -1,0 +1,6 @@
+# add-apt-repository ppa:noobslab/ppa-gimp
+# add-apt-repository ppa:rvm/smplayer
+# apt-get update
+# apt-get install gimp smplayer smplayer-themes
+# apt-get install gimp-plugin-registry
+# apt-get install gimp-resynthesizer

@@ -1,0 +1,18 @@
+oracle@af-aoldb-sby02:/backupnewrman/rman$ rsync -vrah standby_20180831.ctl oracle@af-dss-staging2:/backup/rman/
+Password: oracle123
+sending incremental file list
+standby_20180831.ctl
+
+sent 38.33M bytes  received 35 bytes  8.52M bytes/sec
+total size is 38.32M  speedup is 1.00
+oracle@af-aoldb-sby02:/backupnewrman/rman$
+
+oracle@af-aoldb-sby02:/backupnewrman/rman$ rsync -vrah --progress standby_20180831.ctl oracle@af-dss-staging2:/backup/rman/
+Password: oracle123
+sending incremental file list
+standby_20180831.ctl
+	38.32M 100%		42.86MB/s 	0:00:00  (xfr#1, to-chk=0/1)
+
+sent 38.33M bytes  received 35 bytes  8.52M bytes/sec
+total size is 38.32M  speedup is 1.00
+oracle@af-aoldb-sby02:/backupnewrman/rman$

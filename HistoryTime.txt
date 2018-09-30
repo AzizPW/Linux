@@ -1,0 +1,16 @@
+[orekel@ikan ~]$ vi .bash_profile
+
+export HISTTIMEFORMAT="%Y-%m-%d %T ~ "
+
+[orekel@ikan ~]$ . .bash_profile
+[orekel@ikan ~]$ history
+...
+...
+  102  2017-11-02 18:31:07 ~ grep MemTotal /proc/meminfo
+  103  2017-11-02 18:31:17 ~ grep "model name" /proc/cpuinfo
+  104  2017-11-02 18:31:21 ~ history
+  105  2017-11-02 18:31:35 ~ vi .bash_profile
+  106  2017-11-02 18:32:01 ~ source .bash_profile
+  107  2017-11-02 18:32:04 ~ grep "model name" /proc/cpuinfo
+  108  2017-11-02 18:32:07 ~ history
+[orekel@ikan ~]$

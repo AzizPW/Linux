@@ -1,0 +1,7 @@
+Add external storage
+# fdisk -l
+# fdisk /dev/sdc
+# mkswap /dev/sdc1
+# swapon /dev/sdc1
+# cat /etc/fstab
+/dev/sdc1               swap                    swap    defaults        0 0

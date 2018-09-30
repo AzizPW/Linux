@@ -1,0 +1,67 @@
+nmcli Connect WiFi Command Line
+===============================
+shanum@AsusX42DE:~$ nmcli dev status
+DEVICE     TYPE              STATE        
+70:4D:7B:DD:7B:5D bluetooth         disconnected 
+eth1       802-3-ethernet    unavailable  
+wlan1      802-11-wireless   connected    
+shanum@AsusX42DE:~$ nmcli dev wifi
+SSID                              BSSID               MODE             FREQ       RATE       SIGNAL   SECURITY   ACTIVE  
+'ZenGoAzizPW'                     70:4D:7B:DD:7B:5E   Infrastructure   2412 MHz   54 MB/s    69       WPA2       yes     
+shanum@AsusX42DE:~$ nmcli d disconnect iface wlan1
+shanum@AsusX42DE:~$ nmcli c
+NAME                      UUID                                   TYPE              TIMESTAMP-REAL                    
+AsusX42DE                 5ee792e4-97b1-4d82-9114-0c6bcc293292   802-11-wireless   Jum 22 Des 2017 05:07:20  WIB     
+AlulaZen2                 6d88ff3f-6a6b-47b3-becb-c645f15c2be5   802-11-wireless   Rab 13 Des 2017 07:01:01  WIB     
+smartfren                 b1e21264-699b-4707-a2cb-1ac9537a17b2   cdma              Sen 30 Okt 2017 08:03:31  WIB     
+ZenGoAzizPW Network       2565896e-84ac-48df-b20a-55845be37e8f   bluetooth         never                             
+Tarkam                    60b25257-147d-4513-887b-c4cd9bceaa68   802-11-wireless   Kam 27 Okt 2016 06:10:31  WIB     
+HOME SPOT_plus            189d28c6-d98a-47ef-971b-a37105dcb1f2   802-11-wireless   never                             
+SHABS                     927926b9-1975-4657-b782-07cfe3b9c47c   802-11-wireless   Jum 21 Okt 2016 03:22:33  WIB     
+ZenGoAzizPW               70236b88-d894-45fa-95ac-dbeac2c6861e   802-11-wireless   Jum 22 Des 2017 05:19:02  WIB     
+WiFiNingrat               507ef3ba-e689-4e76-855d-fc27f1941879   802-11-wireless   Sen 24 Apr 2017 03:17:22  WIB     
+AsusX42DE 1               aff7adf4-a407-411a-8117-ffd6a9add6ec   802-11-wireless   never                             
+Wired connection 1        628492ba-4f1d-4255-9d6f-42f8f8de44c7   802-3-ethernet    Jum 22 Des 2017 03:54:05  WIB     
+shanum@AsusX42DE:~$ nmcli dev wifi
+SSID                              BSSID               MODE             FREQ       RATE       SIGNAL   SECURITY   ACTIVE  
+'ZenGoAzizPW'                     70:4D:7B:DD:7B:5E   Infrastructure   2412 MHz   54 MB/s    72       WPA2       no      
+shanum@AsusX42DE:~$ iwlist wlan1 scanning
+wlan1     Scan completed :
+          Cell 01 - Address: 70:4D:7B:DD:7B:5E
+                    Channel:1
+                    Frequency:2.412 GHz (Channel 1)
+                    Quality=60/70  Signal level=-50 dBm  
+                    Encryption key:on
+                    ESSID:"ZenGoAzizPW"
+                    Bit Rates:1 Mb/s; 2 Mb/s; 5.5 Mb/s; 11 Mb/s
+                    Bit Rates:6 Mb/s; 9 Mb/s; 12 Mb/s; 18 Mb/s; 24 Mb/s
+                              36 Mb/s; 48 Mb/s; 54 Mb/s
+                    Mode:Master
+                    Extra:tsf=0000000001baac75
+                    Extra: Last beacon: 26752ms ago
+                    IE: Unknown: 000B5A656E476F417A697A5057
+                    IE: Unknown: 010482848B96
+                    IE: Unknown: 030101
+                    IE: Unknown: 2A0100
+                    IE: Unknown: 32080C1218243048606C
+                    IE: IEEE 802.11i/WPA2 Version 1
+                        Group Cipher : CCMP
+                        Pairwise Ciphers (1) : CCMP
+                        Authentication Suites (1) : PSK
+                    IE: Unknown: 2D1A2C0103FF00000000000000000000000000000000000000000000
+                    IE: Unknown: 3D1601000000000000000000000000000000000000000000
+                    IE: Unknown: DD180050F2020101810003A4000027A4000042435E0062322F00
+
+shanum@AsusX42DE:~$ nmcli d wifi connect ZenGoAzizPW password xyz789**
+shanum@AsusX42DE:~$ ping -c 3 ubuntu.com
+PING ubuntu.com (91.189.94.40) 56(84) bytes of data.
+64 bytes from 91.189.94.40: icmp_seq=1 ttl=50 time=262 ms
+64 bytes from 91.189.94.40: icmp_seq=2 ttl=50 time=259 ms
+64 bytes from 91.189.94.40: icmp_seq=3 ttl=50 time=279 ms
+
+--- ubuntu.com ping statistics ---
+3 packets transmitted, 3 received, 0% packet loss, time 29287ms
+rtt min/avg/max/mdev = 259.048/267.030/279.672/9.051 ms
+shanum@AsusX42DE:~$ echo Alhamdulillah
+Alhamdulillah
+shanum@AsusX42DE:~$

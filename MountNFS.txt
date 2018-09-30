@@ -1,0 +1,4 @@
+How to mount NFS for Datafile in Solaris
+========================================
+mount -F nfs -o bg,hard,rw,rsize=32768,wsize=32768,noac 172.17.1.13:/CL03_NFS_PROD_RPTDBRMDSSC_NR /DATA
+mount -F nfs -o bg,hard,rw,rsize=32768,wsize=32768,noac 172.17.1.13:/CL03_NFS_PROD_LOGRPTDBRMDSSC_NR /ARCHIVE

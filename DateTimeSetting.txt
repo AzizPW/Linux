@@ -1,0 +1,11 @@
+root@aziz-PU451LD:/# hwclock --show
+Kam 28 Jul 2016 06:47:43  WIB  .890208 seconds
+root@aziz-PU451LD:/# date --set="27 Jul 2016 23:49:00"
+Rab Jul 27 23:49:00 WIB 2016
+root@aziz-PU451LD:/#
+
+systemd
+-------
+$ timedatectl
+# timedatectl set-time '2016-07-27 23:43:00'
+$ timedatectl

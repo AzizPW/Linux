@@ -1,0 +1,42 @@
+<html>
+  <head><title>Menonaktifkan sudo</title></head>
+  <body>
+   <font face="Segoe UI">
+    <p align="justify">
+      Assalamu'alaikum Wr. Wb.
+    </p>
+    
+    <p align="justify">
+      Saya akan menjelaskan bagaimana menonaktifkan/<i>disabling</i> perintah <b>sudo</b> pada Linux Ubuntu. Perintah sudo digunakan untuk mengakses suatu perintah pada <b>Terminal/Command Line</b> dengan permission root. Analoginya seperti ini, saya sebagai user <i>azizpw</i> ingin menjalankan perintah <i>poweroff</i> (perintah mematikan/<i>shut down</i> sistem), poweroff bisa diakses dengan permission root. Jika user azizpw ingin tetap menjalankannya maka akan seperti ini:<br><font color="red" face="Courier New">azizpw@u1204:~$ poweroff<br>poweroff: Need to be root</font><br>Jika azizpw ingin melakukan perintah poweroff maka harus menggunakan sudo, contoh:<br><font color="red" face="Courier New">azizpw@u1204:~$ sudo poweroff</font><br>kemudian meminta password.
+    </p>
+    
+    <p align="justify">
+      Saya ingin membatasi hal tersebut, bahwa user azizpw tidak boleh melakukan perintah sudo agar azizpw tidak bebas melakukan ini-itu (membatasi hak akses). <b>Tahap pertama</b> adalah <b>mengaktifkan</b> user <b>root</b> dengan cara:<br><font color="red" face="Courier New">azizpw@u1204:~$ sudo passwd root</font><br>perintah ini akan meminta password baru untuk user root. Secara <b>default</b>, ubuntu <b>tidak mengaktifkan root</b>. Oleh karenanya cara ini untuk mengaktifkan root tersebut. Pemeriksaan apakah root sudah aktif atau belum dilakukan dengan cara:<br><font color="red" face="Courier New">azizpw@u1204:~$ su<br>Password: <br>root@u1204:/home/azizpw# </font><br>Jika root sudah aktif seperti ini, maka perintah poweroff bisa dilakukan tanpa sudo:<br><font color="red" face="Courier New">root@u1204:/home/azizpw# poweroff</font>.
+    </p>
+    
+    <p align="justify">
+      <b>Tahap kedua</b> adalah <b>mengganti tipe user</b> dari <b>Administrator</b> ke <b>Standard</b> dengan cara membuka <b>User Accounts</b> kemudian klik tombol <b>Unlock</b> dan memasukkan password root.GAMBAR1 Kemudian ganti <b>Account type</b> menjadi <b>Standard</b>.GAMBAR2
+    </p>
+    
+    <p align="justify">
+      <b>Tahap ketiga</b> adalah <b>menonaktifkan sudo</b> dengan cara:<br><font color="red" face="Courier New">root@u1204:/home/azizpw# visudo</font><br>kemudian ke bagian akhir dari file (paling bawah) dan cari: <b>ALL ALL=(ALL) NOPASSWD:ALL</b>, tambahkan baris tersebut dengan tanda <b>#</b> di depannya menjadi <b>#ALL ALL=(ALL) NOPASSWD:ALL</b>. Setelah selesai, keluar dan simpan dengan tombol <b>Ctrl+x</b> dan akan muncul:<br><font color="red" face="Courier New">Save modified buffer (ANSWERING "No" WILL DESTROY CHANGES) ? <br>Y Yes<br>N No	^C Cancel</font><br>Tekan tombol y dan enter.
+    </p>
+    
+    <p align="justify">
+      <b>Tahap terakhir</b> adalah memeriksa apakah cara di atas sudah benar atau belum dengan cara keluar dari root:<br><font color="red" face="Courier New">root@u1204:/home/azizpw# exit<br>exit<br>azizpw@u1204:~$</font><br>Kemudian coba dengan perintah sudo:<br><font color="red" face="Courier New">azizpw@u1204:~$ sudo poweroff<br>[sudo] password for azizpw:<br>azizpw is not in the sudoers file.  This incident will be reported<br>azizpw@u1204:~$</font>.<br>Nah, dengan cara ini azizpw sudah tidak bisa melakukan perintah sudo. Jika ingin mengeksekusi perintah dengan permission root bisa menggunakan <font color="red" face="Courier New">su</font> terlebih dahulu, misalya<br><font color="red" face="Courier New">azizpw@u1204:~$ su<br>Password: <br>root@u1204:/home/azizpw# poweroff</font>
+    </p>
+    
+    <p align="justify">
+      Akhir kata sekian apa yang bisa saya bagikan, semoga bermanfaat dan menjadi ilmu untuk meningkatkan keamanan sistem.
+    </p>
+    
+    <p align="justify">
+      <a href="http://www.facebook.com/prastyowibowo" target="_blank"><b>Aziz Prastyo Wibowo</b></a><br>Wassalamu'alaikum Wr. Wb.
+    </p>
+    
+    <p align="center">
+      Tag: <b><a href="#">visudo</a> <a href="#">/etc/sudoers</a> <a href="#">disable sudo</a> <a href="#">enable root</a> <a href="#">Linux</a> <a href="#">Ubuntu</a> <a href="#">menonaktifkan sudo</a></b>
+    </p>
+   </font>
+  </body>
+</html>

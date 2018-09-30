@@ -1,0 +1,6 @@
+Windows						Window values
+-------------------------------------------------------------
+Menu | PopupMenu | DropDownMenu			80
+Dialog | ModalDialog | Utility | Toolbar	80
+Normal						100
+Tooltip | Notification				80

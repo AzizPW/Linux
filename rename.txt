@@ -1,0 +1,8 @@
+rename dari html ke php:
+rename 's/\.html$/\.php/' *.html
+
+remove blank space:
+rename "s/ *//g" *.mp3
+
+rename file yg ada kutipnya jadi underscore:
+rename "y/'/_/" *

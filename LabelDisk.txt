@@ -1,0 +1,1 @@
+ntfslabel --force /dev/sdb1 "TouroS-AzizPW"

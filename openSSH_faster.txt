@@ -1,0 +1,69 @@
+http://meinit.nl/make-openssh-logins-14-times-faster
+Make OpenSSH logins 14 times faster!
+
+Here is a trick to speedup your login to servers. This nice trick only works when you login to a box for the second time, now you might stop reading, but actually logging in again on a box occurs frequently on an average day with me.
+
+First, lets measure time without any changes to SSH.
+
+$ time ssh host ":"
+real 0m0.573s
+user 0m0.004s
+sys 0m0.005s
+
+Now let's modify ~/.ssh/config with these lines on top:
+
+ControlMaster auto
+ControlPath /tmp/ssh-%r@%h:%p
+
+And measure again:
+
+$ ssh host ":"
+$ time ssh host ":"
+real 0m0.039s
+user 0m0.004s
+sys 0m0.004s
+
+Wow, that is an improvement of more than 14 times! Be aware this does not speed up SSH, it only speeds up the login process, but, always good to see speed improvements. Also be aware that your first SSH connection to a certain box will not be faster, only "recycled" connections (second or more times) are faster.
+---------------------------------------------------------------
+http://askubuntu.com/questions/246323/why-ssh-password-prompt-takes-too-long-to-appear
+
+There are several things that can go wrong. Add -vvv to make ssh print a detailed trace of what it's doing, and see where it's pausing.
+
+The problem could be on the client or on the server.
+
+A common problem on the server is if you're connecting from a client for which reverse DNS lookups time out. (A “reverse DNS lookup” means getting back from the client machine's IP address to a host name. It isn't really useful for security, only slightly helpful to diagnose breakin attempts from log entries, but the default configuration does it anyway.) To turn off reverse DNS lookups, add UseDNS no to /etc/ssh/sshd_config (you need to be root on the server).
+
+Another thing that can go wrong is GSSAPI authentication timing out. If you don't know what that is, you're probably not relying on it; you can turn it off by adding the line GSSAPIAuthentication no to /etc/ssh/ssh_config or ~/.ssh/config (that's on the client side).
+
+Now add the following line to your /etc/resolv.conf.
+
+options single-request-reopen
+
+Restart  sshd  
+
+/etc/init.d/sshd restart
+=========================================================================================================================
+prastyo@aziz-X42De:~$ time ssh oracle@10.70.27.20 ":"
+oracle@10.70.27.20's password: 
+
+real	1m25.483s
+user	0m0.005s
+sys	0m0.022s
+prastyo@aziz-X42De:~$
+
+prastyo@aziz-X42De:~$ time ssh oracle@10.70.27.20 ":"
+/etc/ssh/ssh_config: line 1: Bad configuration option: UseDNS
+/etc/ssh/ssh_config: terminating, 1 bad configuration options
+
+real	0m0.014s
+user	0m0.014s
+sys	0m0.000s
+prastyo@aziz-X42De:~$
+
+prastyo@aziz-X42De:~$ time ssh oracle@10.70.27.20 ":"
+oracle@10.70.27.20's password: 
+
+real	0m3.615s
+user	0m0.016s
+sys	0m0.004s
+prastyo@aziz-X42De:~$

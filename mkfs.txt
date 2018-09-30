@@ -1,0 +1,39 @@
+prastyo@aziz-PU451LD:~$ df -h
+Filesystem      Size  Used Avail Use% Mounted on
+udev            5,8G  4,0K  5,8G   1% /dev
+tmpfs           1,2G  1,7M  1,2G   1% /run
+/dev/sda1        83G  8,2G   71G  11% /
+none            4,0K     0  4,0K   0% /sys/fs/cgroup
+none            5,0M     0  5,0M   0% /run/lock
+none            5,9G  152K  5,9G   1% /run/shm
+none            100M   40K  100M   1% /run/user
+/dev/sda4       732G  375G  358G  52% /media/sda4
+/dev/sdb1       932G  659G  274G  71% /media/prastyo/AzizPW_TOURO1TB
+/dev/sdc1        29G  3,2G   26G  11% /media/prastyo/2426-5C1F
+prastyo@aziz-PU451LD:~$ mkfs.ntfs /dev/sdc1
+Could not open /dev/sdc1: Permission denied
+prastyo@aziz-PU451LD:~$ su
+Password: 
+root@aziz-PU451LD:/home/prastyo# mkfs.ntfs /dev/sdc1
+/dev/sdc1 is mounted.
+Refusing to make a filesystem here!
+root@aziz-PU451LD:/home/prastyo# umount /dev/sdc1
+root@aziz-PU451LD:/home/prastyo# mkfs.ntfs /dev/sdc1
+Cluster size has been automatically set to 4096 bytes.
+Initializing device with zeroes: 100% - Done.
+Creating NTFS volume structures.
+mkntfs completed successfully. Have a nice day.
+root@aziz-PU451LD:/home/prastyo# ntfslabel --force /dev/sdc1 "ADATA_UV140_32G"
+root@aziz-PU451LD:/home/prastyo# df -h
+Filesystem      Size  Used Avail Use% Mounted on
+udev            5,8G  4,0K  5,8G   1% /dev
+tmpfs           1,2G  1,7M  1,2G   1% /run
+/dev/sda1        83G  8,2G   71G  11% /
+none            4,0K     0  4,0K   0% /sys/fs/cgroup
+none            5,0M     0  5,0M   0% /run/lock
+none            5,9G  184K  5,9G   1% /run/shm
+none            100M   40K  100M   1% /run/user
+/dev/sda4       732G  375G  358G  52% /media/sda4
+/dev/sdb1       932G  659G  274G  71% /media/prastyo/AzizPW_TOURO1TB
+/dev/sdc1        29G   66M   29G   1% /media/prastyo/ADATA_UV140_32G
+root@aziz-PU451LD:/home/prastyo#
